@@ -13,12 +13,12 @@
     </section>
     <section class="content">
         <div class="left">
-            <img src="images/yellow.jpg" alt="yellow" class="yellow anim"/>
-            <p> I have no clue what I am doing</p>
-            <img src="images/squiggly.svg" alt="squig" class="squig"/>
+            <img src="images/yellow.jpg" alt="yellow" class="yellow anim" data-delay="0s"/>
+            <p class="anim" data-delay="0.5s"> I have no clue what I am doing</p>
+            <img src="images/squiggly.svg" alt="squig" class="squig anim"/>
         </div>
         <div class="right">
-                <div>
+                <div class="anim" data-delay="1s">
 
               
             <h2> Get Yellow</h2>
@@ -29,15 +29,32 @@
 
     <script>
 
-        const images= document.querySelector('.anim');
+        const images= document.querySelectorAll('.anim');
 
-        console.log(images);
+       // console.log(images);
 
         let observer = new IntersectionObserver((entries)=>{
-            console.log(entries);
+          // console.log(entries[0]);
+
+          entries.forEach((entry)=>{
+
+            if(entry.intersectionRatio > 0){
+                entry.target.style.animation =  `anim1 2s ${entry.target.dataset.delay} forwards ease-out`;
+            }
+            else{
+                entry.target.style.animation = 'none';
+            }
+          });
+
+          
+
+
         });
 
-        observer.observe(images);
+            images.forEach((image)=>{
+                observer.observe(image);
+            });
+  
 
     </script>
 </body>
